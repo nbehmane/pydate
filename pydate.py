@@ -39,7 +39,7 @@ def main():
         if ret == 0:
             print('Gathered update list...')
         elif ret > 0:
-            print('Error occured. Aborting...')
+            print('Error occured. Aborting..')
 
 
 
