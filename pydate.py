@@ -27,6 +27,7 @@ def users_active():
         # if the user has been idle for 10 minutes or longer
         if int(idle_time) >= 1000:
             return True
+    return False
 
 
 def main():
@@ -40,9 +41,6 @@ def main():
             print('Gathered update list...')
         elif ret > 0:
             print('Error occured. Aborting..')
-
-
-
 
 if __name__ == "__main__":
     main()
