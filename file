@@ -1,5 +1,4 @@
- 13:22:31 up 131 days,  1:01,  3 users,  load average: 0.00, 0.00, 0.00
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-ee-helpd tty1     -                15Apr21  7.00s  2.31s  0.00s tmux
-ee-helpd pts/0    tmux(17021).%0   13:09    7.00s  0.28s  0.00s /bin/sh -c w > file
-ee-helpd pts/1    tmux(17021).%1   13:09   10:23   0.23s  0.23s -bash
+ 15:06:04 up  1:18,  2 users,  load average: 0.17, 0.15, 0.15
+USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+testws   tty7      13:47    1:18m 34.27s  1.22s i3
+testws   pts/1     14:43    4.00s  0.21s  0.57s tmux

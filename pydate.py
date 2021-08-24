@@ -2,6 +2,8 @@
 import psutil
 import subprocess
 
+OS = 'manjaro'
+
 def get_w():
     """Another way of getting user information"""
     return subprocess.call("w > file", shell=True)
@@ -21,12 +23,15 @@ def users_active():
         print(f'{user_name} | {idle_time}')
         if user_name == 'ee-helpd':
             continue
-        if '.' in idle_time:
-            return False
         idle_time = idle_time.replace(':', '')
+        idle_time = idle_time.replace('.', '')
         # if the user has been idle for 10 minutes or longer
-        if int(idle_time) >= 1000:
+        if 'm' in idle_time:
             return True
+        if 's' in idle_time:
+            idle_time = idle_time.replace('s', '')
+            if int(idle_time) >= 1000:
+                return True
     return False
 
 
@@ -36,9 +41,12 @@ def main():
         print("Skipping updates...")
     else:
         print("Beginning updates...")
-        ret = subprocess.call('apt-get update', shell=True)
+        if OS == 'manjaro':
+            ret = subprocess.call('pacman -Syu', shell=True)
+        elif OS == 'ubuntu':
+            ret = subprocess.call('apt-get update', shell=True)
         if ret == 0:
-            print('Gathered update list...')
+            print('Done updating...')
         elif ret > 0:
             print('Error occured. Aborting..')
 
