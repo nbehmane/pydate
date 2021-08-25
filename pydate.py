@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-import psutil
 import subprocess
 import invoke
 
-OS = 'manjaro'
+OS = 'ubuntu'
 
 def get_w():
     """Another way of getting user information"""
@@ -24,7 +23,7 @@ def users_active():
         user_name = result[user_index][0]
         print(f'{user_name} | {idle_time}')
         if user_name == 'ee-helpd':
-            continue
+            return True
         idle_time = idle_time.replace(':', '')
         idle_time = idle_time.replace('.', '')
         # if the user has been idle for 10 minutes or longer
@@ -45,16 +44,9 @@ def main():
         print("Beginning updates...")
         if OS == 'manjaro':
             ret = subprocess.call('pacman -Syu', shell=True)
-            @task
-            def always_ready(c):
-                responder = Responder(
-                        pattern=r"Proceed with download? \[Y/n\]",
-                        response = "y\n",
-                        )
-                c.run("pacman -Syu", watchers=[responder])
-
         elif OS == 'ubuntu':
             ret = subprocess.call('apt-get update', shell=True)
+            subprocess.call('inv run-update', shell=True)
         if ret == 0:
             print('Done updating...')
         elif ret > 0:
