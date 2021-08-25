@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import psutil
 import subprocess
+import invoke
 
 OS = 'manjaro'
 
@@ -16,6 +17,7 @@ def users_active():
     for line in f:
         result.append(line.split())
     f.close()
+    subprocess.call("rm file", shell=True)
 
     for user_index in range(2, len(result)):
         idle_time = result[user_index][4]
@@ -43,6 +45,14 @@ def main():
         print("Beginning updates...")
         if OS == 'manjaro':
             ret = subprocess.call('pacman -Syu', shell=True)
+            @task
+            def always_ready(c):
+                responder = Responder(
+                        pattern=r"Proceed with download? \[Y/n\]",
+                        response = "y\n",
+                        )
+                c.run("pacman -Syu", watchers=[responder])
+
         elif OS == 'ubuntu':
             ret = subprocess.call('apt-get update', shell=True)
         if ret == 0:

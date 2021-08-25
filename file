@@ -1,4 +1,0 @@
- 15:06:04 up  1:18,  2 users,  load average: 0.17, 0.15, 0.15
-USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
-testws   tty7      13:47    1:18m 34.27s  1.22s i3
-testws   pts/1     14:43    4.00s  0.21s  0.57s tmux
