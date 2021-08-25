@@ -46,8 +46,12 @@ def main():
             ret = subprocess.call('pacman -Syu', shell=True)
 
         elif OS == 'ubuntu':
+            # To add --> Check if a reboot is required for the update.
+            # If it is required, cancel the upate and send an email
+            # to notify that theres needs to be a manual update.
+            # Otherwise continue the update.
             ret = subprocess.call('apt-get update', shell=True)
-            ret = subprocess.call('inv run-update', shell=True)
+            ret = subprocess.call('inv run-ubuntu-update', shell=True)
 
         if ret == 0:
             print('Done updating...')
