@@ -26,17 +26,17 @@ def users_active():
         user_name = result[user_index][0]
         print(f'{user_name} | {idle_time}')
         if user_name == 'ee-helpd':
-            return True
+            return False
         idle_time = idle_time.replace(':', '')
         idle_time = idle_time.replace('.', '')
         # if the user has been idle for 10 minutes or longer
         if 'm' in idle_time:
-            return True
+            return False
         if 's' in idle_time:
             idle_time = idle_time.replace('s', '')
             if int(idle_time) >= 1000:
-                return True
-    return False
+                return False
+    return True
 
 def check_return(ret, msg_p=None, msg_f=None):
     """Check the return code, and print a pass or fail message"""
@@ -61,7 +61,7 @@ def p_print(msg):
 def main():
     active = users_active()
 
-    if active == False:
+    if active == True:
         p_print("Skipping updates...Active users...")
     else:
         p_print("Beginning updates...")
