@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import subprocess
 import invoke
+import os
 
 OS = 'ubuntu'
 
@@ -35,13 +36,29 @@ def users_active():
                 return True
     return False
 
+def check_return(ret, msg_p=None, msg_f=None):
+    if ret == 0 and msg_p == None:
+        return True
+    elif ret == 0 and msg_p != None:
+        p_print(msg_p)
+        return True
+    elif ret > 0 and msg_f == None:
+        return False
+    elif ret > 0 and msg_f != None:
+        p_print(msg_f)
+        return False
+
+def p_print(msg):
+    print(f"{79 * '-'}")
+    print(msg)
+    print(f"{79 * '-'}")
 
 def main():
     active = users_active()
     if active == False:
-        print("Skipping updates...")
+        p_print("Skipping updates...Active users...")
     else:
-        print("Beginning updates...")
+        p_print("Beginning updates...")
         if OS == 'manjaro':
             ret = subprocess.call('pacman -Syu', shell=True)
 
@@ -51,12 +68,18 @@ def main():
             # to notify that theres needs to be a manual update.
             # Otherwise continue the update.
             ret = subprocess.call('apt-get update', shell=True)
-            ret = subprocess.call('inv run-ubuntu-update', shell=True)
 
-        if ret == 0:
-            print('Done updating...')
-        elif ret > 0:
-            print('Error occured. Aborting..')
+
+            if os.path.isfile("/var/run/reboot-required"):
+                p_print("Reboot Required.")
+                ret = 1;
+            else:
+                p_print("No reboot required...Updating...")
+                ret = subprocess.call('inv run-ubuntu-update', shell=True)
+
+        check_return(ret, "*** Done updating. ***", 
+                "*** Update not completed. Check output. ***")
+
 
 if __name__ == "__main__":
     main()
