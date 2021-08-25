@@ -44,9 +44,11 @@ def main():
         print("Beginning updates...")
         if OS == 'manjaro':
             ret = subprocess.call('pacman -Syu', shell=True)
+
         elif OS == 'ubuntu':
             ret = subprocess.call('apt-get update', shell=True)
-            subprocess.call('inv run-update', shell=True)
+            ret = subprocess.call('inv run-update', shell=True)
+
         if ret == 0:
             print('Done updating...')
         elif ret > 0:
