@@ -10,6 +10,8 @@ def get_w():
     return subprocess.call("w > file", shell=True)
 
 def users_active():
+    """Checks if there are any users active on the system."""
+
     # grab the current users and information about them
     ret = get_w()
     f = open("file", "r")
@@ -37,6 +39,8 @@ def users_active():
     return False
 
 def check_return(ret, msg_p=None, msg_f=None):
+    """Check the return code, and print a pass or fail message"""
+
     if ret == 0 and msg_p == None:
         return True
     elif ret == 0 and msg_p != None:
@@ -49,12 +53,14 @@ def check_return(ret, msg_p=None, msg_f=None):
         return False
 
 def p_print(msg):
+    """pretty print a message."""
     print(f"{79 * '-'}")
     print(msg)
     print(f"{79 * '-'}")
 
 def main():
     active = users_active()
+
     if active == False:
         p_print("Skipping updates...Active users...")
     else:
@@ -64,11 +70,10 @@ def main():
 
         elif OS == 'ubuntu':
             # To add --> Check if a reboot is required for the update.
-            # If it is required, cancel the upate and send an email
-            # to notify that theres needs to be a manual update.
+            # If it is required, cancel the update and send an email
+            # to notify that there needs to be a manual update.
             # Otherwise continue the update.
             ret = subprocess.call('apt-get update', shell=True)
-
 
             if os.path.isfile("/var/run/reboot-required"):
                 p_print("Reboot Required.")
