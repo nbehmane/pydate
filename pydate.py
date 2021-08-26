@@ -81,7 +81,7 @@ def main():
                 ret = 1
             else:
                 p_print("No reboot required...Updating...")
-                ret = subprocess.call('inv run-ubuntu-update', shell=True)
+                ret = subprocess.call("inv -r '/home/ee-helpdesk/pydate/pydate' run-ubuntu-update 2> out", shell=True)
         check_return(ret, "*** Done updating. ***", 
                 "*** Update not completed. Check output. ***")
 

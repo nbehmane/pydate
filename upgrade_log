@@ -1,0 +1,14 @@
+Time Initiated: 14:39:22
+Ign:1 https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 InRelease
+Hit:2 https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 Release
+Hit:3 https://download.docker.com/linux/ubuntu bionic InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:6 http://ppa.launchpad.net/ansible/ansible/ubuntu trusty InRelease
+Get:7 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+Hit:8 http://ppa.launchpad.net/ansible/ansible-2.8/ubuntu bionic InRelease
+Hit:9 http://ppa.launchpad.net/ansible/ansible/ubuntu bionic InRelease
+Get:10 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1,137 kB]
+Fetched 1,389 kB in 2s (639 kB/s)
+Reading package lists...
