@@ -7,4 +7,4 @@ def run_ubuntu_update(c):
             pattern=r"Do you want to continue\? \[Y\/n\] ",
             response = "y\n",
             )
-    c.run("apt-get upgrade", watchers=[responder])
+    c.run("apt-get upgrade --with-new-pkgs 2>&1 | tee -a upgrade_log", watchers=[responder])

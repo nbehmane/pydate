@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+from time import localtime
 import subprocess
 import invoke
 import os
+
 
 OS = 'ubuntu'
 
@@ -60,6 +62,10 @@ def p_print(msg):
 
 def main():
     active = users_active()
+    time = localtime()
+
+    time_on = f"Time Initiated: {time[3]}:{time[4]}:{time[5]}"
+    subprocess.call(f"echo {time_on} 2>&1 | tee -a upgrade_log", shell=True)
 
     if active == True:
         p_print("Skipping updates...Active users...")
@@ -69,13 +75,13 @@ def main():
             ret = subprocess.call('pacman -Syu', shell=True)
 
         elif OS == 'ubuntu':
-            ret = subprocess.call('apt-get update', shell=True)
+            ret = subprocess.call('apt-get update 2>&1 | tee -a upgrade_log', shell=True)
             if os.path.isfile("/var/run/reboot-required"):
                 p_print("Reboot Required.")
                 ret = 1
             else:
                 p_print("No reboot required...Updating...")
-                ret = subprocess.call('inv run-ubuntu-update &> log', shell=True)
+                ret = subprocess.call('inv run-ubuntu-update', shell=True)
         check_return(ret, "*** Done updating. ***", 
                 "*** Update not completed. Check output. ***")
 
