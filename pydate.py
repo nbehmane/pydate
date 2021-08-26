@@ -85,7 +85,6 @@ def main():
         check_return(ret, "*** Done updating. ***", 
                 "*** Update not completed. Check output. ***")
 
-
 if __name__ == "__main__":
     main()
 
